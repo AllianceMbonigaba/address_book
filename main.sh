@@ -1,24 +1,26 @@
 #!/bin/sh
-# Address Book
+
 # Alliance Mbonigaba
+# Cohort 2
+# Final Project
+# Address book (Question 3)
 
 
 trap 'do_menu' 2
 
-. ./menu_functions.sh
+. ./menu_functions.sh  # import all other functions
 
 
-
+#display menuof all functions
 show_menu()
 {
-  # Called by do_menu
+  
   
   echo
-  echo
-  echo
+  echo 
   echo
   echo "-- Address Book Menu --"
-  echo "1. List / Search"
+  echo "1. List items or Search an item"
   echo "2. Add"
   echo "3. Edit"
   echo "4. Remove"
@@ -26,7 +28,8 @@ show_menu()
   echo -en "Enter your selection: "
 }
 
-do_menu()
+# A menu with all functionalities
+menu()
 {
   i=-1
 
@@ -36,20 +39,20 @@ do_menu()
     i=`echo $i | tr '[A-Z]' '[a-z]'`
     case "$i" in 
 	"1")
-	list_items
+	list_items #list all the items that are available in the book
 	;;
 	"2")
-	add_item
+	add_item #Add an item to a book
 	;;
 	"3")
-	edit_item
+	edit_item #Allow user to edit a selected item from the book
 	;;
 	"4")
-	remove_item
+	remove_item #Remove an item from the book
 	;;
 	"q")
-	# Ought to confirm before quitting!
-	echo "So long, and Thanks for all the Fish."
+	# Let the user know that they are quitting the program!
+	echo "You are quitting the program...."
 	exit 0
 	;;
 	*)
@@ -59,10 +62,11 @@ do_menu()
   done
 }
 
-##########################################################
-############ Main script starts here #####################
-##########################################################
 
+## Main engine of the program ##
+
+
+#check the availability and contraints of the book
 if [ ! -f $BOOK ]; then
   echo "Creating $BOOK ..."
   touch $BOOK
@@ -78,4 +82,4 @@ if [ ! -w $BOOK ]; then
   exit 2
 fi
 
-do_menu
+menu #call menu function

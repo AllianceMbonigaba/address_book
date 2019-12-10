@@ -1,4 +1,9 @@
-# Global variables
+# Alliance Mbonigaba
+# Cohort 2
+# Final Project
+# Address book (Question 3)
+
+
 BOOK=~/.addressbook
 export BOOK
 
@@ -30,11 +35,11 @@ find_lines()
   return $res
 }
 
-list_items()
+list_items() # List items matching given search criteria
 {
-  # List items matching given search criteria
+  
   if [ "$#" -eq "0" ]; then
-    echo -en "Search for: (return to list all) "
+    echo -en "Search for: (or hit enter to list all) "
     read search
     if [ -z "$search" ]; then
       search="."
@@ -53,13 +58,13 @@ list_items()
 
 add_item()
 {
-  echo "Add Item: You will be prompted for 3 items:"
-  echo "  - Name, Phone, Email."
+  echo "You are about to add an item: You will be prompted to add 3 items:"
+  echo "  Name, Phone, Email."
   echo
   echo -en "Name: "
   read name
   find_lines "^${name}:"
-  if [ `num_lines "^${name}:"` -ne "0" ]; then
+  if [ `num_lines "^${name}:"` -ne "0" ]; then #check whether the name entered exist
     echo "Sorry, $name already has an entry."
     return
   fi
@@ -67,7 +72,7 @@ add_item()
   read phone
   echo -en "Email: "
   read email
-  # Confirm
+  # display and write data to the book
   echo "${name}:${phone}:${email}" >> $BOOK
 }
 
@@ -86,7 +91,7 @@ locate_single_item()
       "0") echo "less" ;;
       "*") echo "more" ;;
     esac
-    echo "specific search term (q to return to menu): "
+    echo "specific search term (press q to return to menu): "
     read search
     if [ "$search" == "q" ]; then
       return 0
@@ -96,7 +101,7 @@ locate_single_item()
   return `grep -in $search $BOOK |cut -d":" -f1`
 }
 
-remove_item()
+remove_item() #removing an item 
 {
   locate_single_item
   search=`head -$? $BOOK | tail -1|tr ' ' '.'`
@@ -112,7 +117,7 @@ remove_item()
   fi
 }
 
-edit_item()
+edit_item() #edit an item
 {
   locate_single_item
   search=`head -$? $BOOK | tail -1|tr ' ' '.'`
