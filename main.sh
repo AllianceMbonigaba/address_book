@@ -6,7 +6,7 @@
 # Address book (Question 3)
 
 
-trap 'do_menu' 2
+trap 'menu' 2
 
 . ./menu_functions.sh  # import all other functions
 
